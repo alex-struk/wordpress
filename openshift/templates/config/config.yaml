@@ -94,16 +94,23 @@ objects:
               deny all;
           }
           port_in_redirect off;
-          rewrite ^/emdt$  /case-studies/emdt permanent;
-          location /digital-trust/showcase {
+
+          location /digital-trust/showcase/ {
             proxy_pass https://bc-wallet-demo.apps.silver.devops.gov.bc.ca;
           }
 
-          location /digital-trust {
-            proxy_pass https://bcdigitaltrust.info;
-            proxy_set_header Host $host;
+          # location /digital-trust/ {
+          #   rewrite ^/digital-trust/(.*)$ https://bcdigitaltrust.info/$1;
+          # }
+
+          location /digital-trust {         
+            proxy_set_header Host $proxy_host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_buffering off;
+            rewrite ^/digital-trust/(.*)$ /$1 break;
+            proxy_pass https://bcdigitaltrust.info;
           }
 
           #location /marketplace {
@@ -117,12 +124,12 @@ objects:
               try_files $uri $uri/ /index.php?$args; 
           }
           
-          # Required for multi-site wp-admin.
-          if (!-e $request_filename) {
-              rewrite /wp-admin$ $scheme://$host$uri/ permanent;  
-              rewrite ^(/[^/]+)?(/wp-.*) $2 last;                     
-              rewrite ^(/[^/]+)?(/.*.php) $2 last;                   
-          }
+          # # Required for multi-site wp-admin.
+          # if (!-e $request_filename) {
+          #     rewrite /wp-admin$ $scheme://$host$uri/ permanent;  
+          #     rewrite ^(/[^/]+)?(/wp-.*) $2 last;                     
+          #     rewrite ^(/[^/]+)?(/.*.php) $2 last;                   
+          # }
           location /nginx_status {
               stub_status on;
               access_log off;
