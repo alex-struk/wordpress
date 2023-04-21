@@ -41,6 +41,7 @@ objects:
       name: ${APP_NAME}-${ROLE_NAME}-db--${POOL_NAME}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       labels:
+        app.kubernetes.io/part-of: ${APP_NAME}
         app: ${APP_NAME}-${ROLE_NAME}
         env: ${ENV_NAME}
         name: ${APP_NAME}-${ROLE_NAME}-db--${POOL_NAME}
@@ -59,6 +60,7 @@ objects:
       name: ${APP_NAME}-${ROLE_NAME}-file--${POOL_NAME}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       labels:
+        app.kubernetes.io/part-of: ${APP_NAME}
         app: ${APP_NAME}-${ROLE_NAME}
         env: ${ENV_NAME}
         name: ${APP_NAME}-${ROLE_NAME}-file--${POOL_NAME}

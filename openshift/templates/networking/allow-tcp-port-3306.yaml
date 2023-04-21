@@ -33,6 +33,8 @@ objects:
   - kind: NetworkPolicy
     apiVersion: networking.k8s.io/v1
     metadata:
+      labels:
+        app.kubernetes.io/part-of: ${APP_NAME}
       name: allow-${PROTOCOL}-port-${PORT}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
     spec:
