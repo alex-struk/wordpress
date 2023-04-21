@@ -119,6 +119,7 @@ objects:
           annotations:
             alpha.image.policy.openshift.io/resolve-names: '*'
           labels:
+            app.kubernetes.io/part-of: ${APP_NAME}
             name: ${APP_NAME}-${ROLE_NAME}--${SITE_NAME}
             app: ${APP_NAME}
             role: ${ROLE_NAME}
