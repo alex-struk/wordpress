@@ -89,7 +89,7 @@ objects:
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       annotations:
         image.openshift.io/triggers: >-
-          [{"from":{"kind":"ImageStreamTag","name":"${APP_NAME}-wordpress-run:${ENV_NAME}","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"${APP_NAME}-wordpress--${SITE_NAME}\")].image"},{"from":{"kind":"ImageStreamTag","name":"${APP_NAME}-nginx-run:${ENV_NAME}","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"${APP_NAME}-nginx--${SITE_NAME}\")].image"}]
+          [{"from":{"kind":"ImageStreamTag","name":"wordpress-wordpress-run:${ENV_NAME}","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"${APP_NAME}-wordpress--${SITE_NAME}\")].image"},{"from":{"kind":"ImageStreamTag","name":"wordpress-nginx-run:${ENV_NAME}","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"${APP_NAME}-nginx--${SITE_NAME}\")].image"}]
       labels:
         app.kubernetes.io/part-of: ${APP_NAME}
         app.openshift.io/runtime: nginx
@@ -163,7 +163,7 @@ objects:
                 defaultMode: 420
           containers:
             - name: ${APP_NAME}-wordpress--${SITE_NAME}
-              image: image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-wordpress-run:${ENV_NAME}
+              image: image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/wordpress-wordpress-run:${ENV_NAME}
               wordpress-wordpress-run:
                 openshift:dev:
               imagePullPolicy: Always
@@ -213,7 +213,7 @@ objects:
                   cpu: ${CPU_LIMIT}
                   memory: ${MEMORY_LIMIT}
             - name: ${APP_NAME}-nginx--${SITE_NAME}
-              image: image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-nginx-run:${ENV_NAME}
+              image: image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/wordpress-nginx-run:${ENV_NAME}
               imagePullPolicy: Always
               ports:
                 - name: ${NGINX_APP_PORT}-tcp
