@@ -55,6 +55,7 @@ objects:
       annotations:
         description: Exposes and load balances the application pods.
       labels:
+        app.kubernetes.io/part-of: ${APP_NAME}
         name: ${APP_NAME}-${ROLE_NAME}--${SITE_NAME}
         app: ${APP_NAME}
         role: ${ROLE_NAME}
@@ -81,6 +82,7 @@ objects:
       name: ${APP_NAME}-${ROLE_NAME}--${SITE_NAME}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       labels:
+        app.kubernetes.io/part-of: ${APP_NAME}
         name: ${APP_NAME}-${ROLE_NAME}--${SITE_NAME}
         app: ${APP_NAME}
         role: ${ROLE_NAME}

@@ -46,6 +46,8 @@ objects:
     metadata:
       name: ${APP_NAME}-${ROLE_NAME}--${SITE_NAME}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      labels:
+        app.kubernetes.io/part-of: ${APP_NAME}
     spec:
       accessModes:
         - "ReadWriteOnce"
